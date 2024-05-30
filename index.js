@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-
+const authFeedback = require("./routers/feedbackRoute");
 const app = express();
 
 mongoose
@@ -20,7 +20,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use("/feedback", authFeedback);
 app.listen(5000, () => {
   console.log("Server is running on port 5000");
 });
