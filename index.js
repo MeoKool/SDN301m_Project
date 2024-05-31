@@ -4,8 +4,9 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-
+const authFeedback = require("./routers/feedbackRoute");
 const app = express();
+const authArticles = require("./routers/articlesRoute");
 
 mongoose
   .connect("mongodb://localhost:27017/sdn301m_project")
@@ -21,6 +22,9 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+app.use("/api", require("./routers/productRoute"));
+app.use("/article", authArticles);
+
+app.listen(8000, () => {
+  console.log("Server is running");
 });
